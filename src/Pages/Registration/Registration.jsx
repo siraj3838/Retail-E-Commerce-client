@@ -2,12 +2,13 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Registration = () => {
     const [passwordError, setPasswordError] = useState('');
     const [createSuccess, setCreateSuccess] = useState('');
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
+
 
     const handleRegister = e => {
         e.preventDefault();
@@ -16,6 +17,7 @@ const Registration = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(name, email, password);
+        setPasswordError('')
         if (password.length < 6) {
             setPasswordError('At least 6 or more characters Please');
             return;
@@ -29,15 +31,16 @@ const Registration = () => {
             return;
         }
         createUser(email, password)
-        .then(res => {
-            console.log(res.user)
-            setCreateSuccess('Registration SuccessFully');
-            toast("Registration SuccessFully")
-        })
-        .catch(error => {
-            console.error(error.message)
-            setPasswordError(error.message)
-        })
+            .then(res => {
+                console.log(res.user)
+                setCreateSuccess('Registration SuccessFully');
+                toast("Registration SuccessFully")
+                form.reset()
+            })
+            .catch(error => {
+                console.error(error.message)
+                setPasswordError(error.message)
+            })
     }
 
     return (
@@ -142,7 +145,7 @@ const Registration = () => {
                             Already have an account?
                             <Link to={'/login'}><button className="font-bold text-pink-500 text-xl ml-2 transition-colors hover:text-blue-700">Log In</button></Link>
                         </p>
-                        
+
                     </form>
                 </div>
             </div>
