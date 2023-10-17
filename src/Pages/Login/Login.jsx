@@ -1,36 +1,58 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const {loginUser} = useContext(AuthContext);
+    const { loginUser,googleLoginUser } = useContext(AuthContext);
     const [passwordError, setPasswordError] = useState('');
     const [createSuccess, setCreateSuccess] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogin = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log( email, password);
-        
+        console.log(email, password);
+
         loginUser(email, password)
-        .then(res => {
-            console.log(res.user)
-            setCreateSuccess('Log In SuccessFully');
-            toast("Log In SuccessFully");
-            form.reset()
-        })
-        .catch(error => {
-            console.error(error.message)
-            setPasswordError(error.message)
-        })
+            .then(res => {
+                console.log(res.user)
+                setCreateSuccess('Log In SuccessFully');
+                Swal.fire(
+                    'Thank You',
+                    'Login Successfully',
+                    'success'
+                  )
+                form.reset()
+                navigate(location?.state ? location.state : '/');
+            })
+            .catch(error => {
+                console.error(error.message)
+                setPasswordError(error.message)
+            })
+    }
+    const googleLogin = () => {
+        googleLoginUser()
+            .then(response => {
+                Swal.fire(
+                    'Thank You',
+                    'Login Successfully',
+                    'success'
+                  )
+                navigate(location.state ? location?.state : '/')
+                console.log(response.user)
+            })
+            .catch(error => {
+                console.log(error)
+                setPasswordError(error.message)
+            })
     }
     return (
         <div className="mx-5 lg:mx-0">
-            <ToastContainer />
             <div className="max-w-lg mx-auto border-4 p-10 my-5 bg-gradient-to-r from-orange-100 to-orange-300 ">
                 <div className="relative mx-auto flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none">
                     <h4 className="block text-4xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased text-center">
@@ -41,7 +63,7 @@ const Login = () => {
                     </p>
                     <form onSubmit={handleLogin} className="mt-8 mb-2 w-80 max-w-screen-lg mx-auto sm:w-96">
                         <div className="mb-4 flex flex-col gap-6">
-                            
+
                             <div className="relative h-11 w-full min-w-[200px]">
                                 <input name="email" type="email" required
                                     className="bg-gradient-to-r from-blue-300 to-blue-100 peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -117,6 +139,13 @@ const Login = () => {
                             data-ripple-light="true"
                         >
                             Log In
+                        </button>
+                        <button onClick={googleLogin}
+                            className="mt-6 block w-full select-none rounded-lg bg-gray-700 py-3 px-6 text-center align-middle font-sans text-lg font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="submit"
+                            data-ripple-light="true"
+                        >
+                            Google Login
                         </button>
                         <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
                             Are you new here? please

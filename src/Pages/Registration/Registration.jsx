@@ -1,19 +1,22 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Registration = () => {
     const [passwordError, setPasswordError] = useState('');
     const [createSuccess, setCreateSuccess] = useState('');
-    const { createUser } = useContext(AuthContext);
-
+    const { createUser, googleLoginUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleRegister = e => {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
+        const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
         console.log(name, email, password);
@@ -34,18 +37,44 @@ const Registration = () => {
             .then(res => {
                 console.log(res.user)
                 setCreateSuccess('Registration SuccessFully');
-                toast("Registration SuccessFully")
-                form.reset()
+                updateProfile(res.user, {
+                    displayName: name,
+                    photoURL: photo,
+                })
+                    .then(() => {
+                        window.location.reload()
+                        toast.success('Registration SuccessFully');
+                        form.reset()
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.error(error.message)
                 setPasswordError(error.message)
             })
     }
+    const googleLogin = () => {
+        googleLoginUser()
+            .then(response => {
+                Swal.fire(
+                    'Thank You',
+                    'Login Successfully',
+                    'success'
+                  )
+                navigate(location.state ? location?.state : '/')
+                console.log(response.user)
+            })
+            .catch(error => {
+                console.log(error)
+                setPasswordError(error.message)
+            })
+    }
 
     return (
         <div className="mx-5 lg:mx-0">
-            <ToastContainer />
+            <ToastContainer style={{marginTop: '200px'}}/>
             <div className="max-w-lg mx-auto border-4 p-10 my-5 bg-gradient-to-r from-orange-100 to-orange-300">
                 <div className="relative mx-auto flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none">
                     <h4 className="block font-sans text-4xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased text-center">
@@ -65,6 +94,16 @@ const Registration = () => {
                                     Name
                                 </label>
                             </div>
+                            <div className="relative h-11 w-full min-w-[200px]">
+                                <input name="photo" type="text"
+                                    className="bg-gradient-to-r from-blue-300 to-blue-100 peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                                    placeholder=" "
+                                />
+                                <label className="behtmlFore:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all behtmlFore:pointer-events-none behtmlFore:mt-[6.5px] behtmlFore:mr-1 behtmlFore:box-border behtmlFore:block behtmlFore:h-1.5 behtmlFore:w-2.5 behtmlFore:rounded-tl-md behtmlFore:border-t behtmlFore:border-l behtmlFore:border-blue-gray-200 behtmlFore:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:behtmlFore:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:behtmlFore:border-t-2 peer-focus:behtmlFore:border-l-2 peer-focus:behtmlFore:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:behtmlFore:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                    Photo URL
+                                </label>
+                            </div>
+
                             <div className="relative h-11 w-full min-w-[200px]">
                                 <input name="email" type="email" required
                                     className="bg-gradient-to-r from-blue-300 to-blue-100 peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -140,6 +179,13 @@ const Registration = () => {
                             data-ripple-light="true"
                         >
                             Register
+                        </button>
+                        <button onClick={googleLogin}
+                            className="mt-6 block w-full select-none rounded-lg bg-gray-700 py-3 px-6 text-center align-middle font-sans text-lg font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="submit"
+                            data-ripple-light="true"
+                        >
+                            Google Login
                         </button>
                         <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
                             Already have an account?
