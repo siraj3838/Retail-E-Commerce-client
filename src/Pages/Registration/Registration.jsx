@@ -1,8 +1,48 @@
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const Registration = () => {
+    const [passwordError, setPasswordError] = useState('');
+    const [createSuccess, setCreateSuccess] = useState('');
+    const {createUser} = useContext(AuthContext);
+
+    const handleRegister = e => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(name, email, password);
+        if (password.length < 6) {
+            setPasswordError('At least 6 or more characters Please');
+            return;
+        }
+        else if (!/[A-Z]/.test(password)) {
+            setPasswordError('password most be one uppercase characters');
+            return;
+        }
+        else if (!/[!@#$%^&*]/.test(password)) {
+            setPasswordError('At least one special characters');
+            return;
+        }
+        createUser(email, password)
+        .then(res => {
+            console.log(res.user)
+            setCreateSuccess('Registration SuccessFully');
+            toast("Registration SuccessFully")
+        })
+        .catch(error => {
+            console.error(error.message)
+            setPasswordError(error.message)
+        })
+    }
+
     return (
         <div className="mx-5 lg:mx-0">
+            <ToastContainer />
             <div className="max-w-lg mx-auto border-4 p-10 my-5 bg-gradient-to-r from-orange-100 to-orange-300">
                 <div className="relative mx-auto flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none">
                     <h4 className="block font-sans text-4xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased text-center">
@@ -11,7 +51,7 @@ const Registration = () => {
                     <p className="mt-1 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased text-center">
                         Enter your details to Register
                     </p>
-                    <form className="mt-8 mb-2 w-80 max-w-screen-lg mx-auto sm:w-96">
+                    <form onSubmit={handleRegister} className="mt-8 mb-2 w-80 max-w-screen-lg mx-auto sm:w-96">
                         <div className="mb-4 flex flex-col gap-6">
                             <div className="relative h-11 w-full min-w-[200px]">
                                 <input name="name" type="text" required
@@ -85,6 +125,12 @@ const Registration = () => {
                                 </p>
                             </label>
                         </div>
+                        {
+                            passwordError && <p className="text-red-800 text-lg font-medium text-center">{passwordError}</p>
+                        }
+                        {
+                            createSuccess && <p className="text-green-700 text-lg font-medium text-center">{createSuccess}</p>
+                        }
                         <button
                             className="mt-6 block w-full select-none rounded-lg bg-pink-500 py-3 px-6 text-center align-middle font-sans text-lg font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             type="submit"
@@ -96,6 +142,7 @@ const Registration = () => {
                             Already have an account?
                             <Link to={'/login'}><button className="font-bold text-pink-500 text-xl ml-2 transition-colors hover:text-blue-700">Log In</button></Link>
                         </p>
+                        
                     </form>
                 </div>
             </div>
