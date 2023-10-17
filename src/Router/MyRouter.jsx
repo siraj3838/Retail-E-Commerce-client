@@ -6,6 +6,8 @@ import AddProduct from "../Pages/AddProduct/AddProduct";
 import MyCart from "../Pages/MyCart/MyCart";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
+import PrivateRouter from "./PrivateRouter/PrivateRouter";
+import Amazon from "../Components/Amazon/Amazon";
 
 const MyRouter = createBrowserRouter([
     {
@@ -19,11 +21,11 @@ const MyRouter = createBrowserRouter([
         },
         {
             path: '/addProduct',
-            element: <AddProduct></AddProduct>
+            element: <PrivateRouter><AddProduct></AddProduct></PrivateRouter>
         },
         {
             path: '/myCart',
-            element: <MyCart></MyCart>
+            element: <PrivateRouter><MyCart></MyCart></PrivateRouter>
         },
         {
             path: '/login',
@@ -32,6 +34,10 @@ const MyRouter = createBrowserRouter([
         {
             path: '/registration',
             element: <Registration></Registration>
+        },
+        {
+            path: '/amazon',
+            element: <Amazon></Amazon>
         }
       ]
     },
