@@ -21,7 +21,7 @@ const Navbar = () => {
         <NavLink
             to="/"
             className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-red-900 hover:text-blue-800 underline" : ""
+                isPending ? "pending" : isActive ? "text-white px-3 py-2 rounded-lg hover:text-blue-800 bg-gradient-to-r from-orange-600 to-orange-400" : ""
             }
         >
             Home
@@ -29,7 +29,7 @@ const Navbar = () => {
         <NavLink
             to="/addProduct"
             className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-red-900 hover:text-blue-800 underline" : ""
+                isPending ? "pending" : isActive ? "text-white px-3 py-2 rounded-lg hover:text-blue-800 bg-gradient-to-r from-orange-600 to-orange-400" : ""
             }
         >
             Add Product
@@ -37,7 +37,7 @@ const Navbar = () => {
         <NavLink
             to="/myCart"
             className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-red-900 hover:text-blue-800 underline" : ""
+                isPending ? "pending" : isActive ? "text-white px-3 py-2 rounded-lg hover:text-blue-800 bg-gradient-to-r from-orange-600 to-orange-400" : ""
             }
         >
             My Cart
@@ -46,7 +46,7 @@ const Navbar = () => {
     return (
         <div className="">
             <div className="">
-            <ToastContainer style={{marginTop: '200px'}}/>
+                <ToastContainer style={{ marginTop: '200px' }} />
             </div>
             <div className="grid lg:grid-cols-3 max-w-screen-xl mx-auto space-y-5 lg:space-y-0 my-7 md:px-10 lg:px-0 text-center">
                 <div className="flex justify-center items-center lg:justify-start">
@@ -64,7 +64,14 @@ const Navbar = () => {
                         </div>
                             :
                             <div className="flex justify-center md:justify-end">
-                                <Link to={'/login'}><button className="btn btn-accent font-bold">Login</button></Link>
+                                <NavLink
+                                    to="/login"
+                                    className={({ isActive, isPending }) =>
+                                        isPending ? "pending" : isActive ? "text-white px-3 py-2 rounded-lg hover:text-blue-800 bg-gradient-to-r from-orange-600 to-orange-400" : ""
+                                    }
+                                >
+                                    <button className="text-xl font-semibold">Login</button>
+                                </NavLink>
                             </div>
                     }
                 </div>

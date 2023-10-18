@@ -8,6 +8,11 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import PrivateRouter from "./PrivateRouter/PrivateRouter";
 import Amazon from "../Components/Amazon/Amazon";
+import Walmart from "../Components/Walmart/Walmart";
+import Alibaba from "../Components/Alibaba/Alibaba";
+import EBay from "../Components/EBay/EBay";
+import Target from "../Components/Target/Target";
+import BestBuy from "../Components/BestBuy/BestBuy";
 
 const MyRouter = createBrowserRouter([
     {
@@ -17,7 +22,8 @@ const MyRouter = createBrowserRouter([
       children: [
         {
             path: '/',
-            element: <Home></Home>
+            element: <Home></Home>,
+            loader: ()=> fetch('/homeData.json')
         },
         {
             path: '/addProduct',
@@ -38,6 +44,26 @@ const MyRouter = createBrowserRouter([
         {
             path: '/amazon',
             element: <Amazon></Amazon>
+        },
+        {
+            path: '/walmart',
+            element: <Walmart></Walmart>
+        },
+        {
+            path: '/alibaba',
+            element: <Alibaba></Alibaba>
+        },
+        {
+            path: '/eBay',
+            element: <EBay></EBay>
+        },
+        {
+            path: '/target',
+            element: <Target></Target>
+        },
+        {
+            path: '/bestBuy',
+            element: <BestBuy></BestBuy>
         }
       ]
     },
