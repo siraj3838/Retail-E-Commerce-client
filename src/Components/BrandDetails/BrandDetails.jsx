@@ -24,7 +24,7 @@ const BrandDetails = () => {
                             <h2 className="text-xl font-bold">{detailsInfo.price}$</h2>
                             <p className="text-gray-500">{detailsInfo.description}</p>
                             <h2 className="text-xl font-semibold">{detailsInfo.category}</h2>
-                            <button className="">Add to Car</button>
+                            <button className="">Add to Cart</button>
                         </div>
                     </div>
                 </div>
