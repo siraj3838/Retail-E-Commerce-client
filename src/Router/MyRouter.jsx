@@ -13,6 +13,8 @@ import Alibaba from "../Components/Alibaba/Alibaba";
 import EBay from "../Components/EBay/EBay";
 import Target from "../Components/Target/Target";
 import BestBuy from "../Components/BestBuy/BestBuy";
+import UpdateForm from "../UpdatedForm/UpdateForm";
+import BrandDetails from "../Components/BrandDetails/BrandDetails";
 
 const MyRouter = createBrowserRouter([
     {
@@ -43,27 +45,42 @@ const MyRouter = createBrowserRouter([
         },
         {
             path: '/amazon',
-            element: <Amazon></Amazon>
+            element: <Amazon></Amazon>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
         },
         {
             path: '/walmart',
-            element: <Walmart></Walmart>
+            element: <Walmart></Walmart>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
         },
         {
             path: '/alibaba',
-            element: <Alibaba></Alibaba>
+            element: <Alibaba></Alibaba>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
         },
         {
             path: '/eBay',
-            element: <EBay></EBay>
+            element: <EBay></EBay>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
         },
         {
             path: '/target',
-            element: <Target></Target>
+            element: <Target></Target>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
         },
         {
             path: '/bestBuy',
             element: <BestBuy></BestBuy>
+        },
+        {
+            path: '/updateForm/:id',
+            element: <UpdateForm></UpdateForm>,
+            loader: ()=> fetch(`https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon`)
+        },
+        {
+            path: '/details/:id',
+            element: <BrandDetails></BrandDetails>,
+            loader: ()=> fetch(`https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon`)
         }
       ]
     },

@@ -44,7 +44,7 @@ const Navbar = () => {
         </NavLink>
     </>
     return (
-        <div className="">
+        <div className="bg-gradient-to-r from-sky-300 to-orange-400 py-[1px] mb-5">
             <div className="">
                 <ToastContainer style={{ marginTop: '200px' }} />
             </div>

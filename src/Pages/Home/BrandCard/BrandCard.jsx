@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const BrandCard = ({brandCard}) => {
-    console.log(brandCard)
     return (
         <div className="my-10 px-5 lg:px-0">
             <div className="max-w-screen-xl mx-auto">
