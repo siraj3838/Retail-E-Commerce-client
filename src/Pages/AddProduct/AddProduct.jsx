@@ -1,6 +1,8 @@
+
 import { toast } from "react-toastify";
 
 const AddProduct = () => {
+    
     const addProductHandle = e => {
         e.preventDefault();
         const form = e.target;
@@ -14,8 +16,10 @@ const AddProduct = () => {
         console.log(photo, name, brandName, price, description, rating);
         const amazonData = { photo, name, brandName, price, description, rating, category }
         console.log(amazonData)
+        
 
-        fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon', {
+
+        fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon', {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -26,7 +30,7 @@ const AddProduct = () => {
                 .then(data => {
                     console.log(data)
                     if (data.insertedId) {
-                        toast.success('Product SuccessFully Added');
+                        toast.success('Product SuccessFully Create');
                         form.reset();
                     }
                 })
@@ -35,7 +39,7 @@ const AddProduct = () => {
 
     }
     return (
-        <div className="max-w-screen-xl mx-auto mb-10">
+        <div className="max-w-screen-xl mx-auto mb-10 mt-5">
             <div className="max-w-xl mx-auto bg-slate-300 p-10 rounded-lg">
                 <form onSubmit={addProductHandle}>
                 <h2 className="mb-7 text-center text-3xl font-bold italic bg-gradient-to-r from-orange-400 to-yellow-700 text-transparent bg-clip-text">Add Your Product</h2>
@@ -45,13 +49,13 @@ const AddProduct = () => {
                     <input className="w-full py-2 pl-3 rounded-lg" required type="text" name="name" placeholder="Product Name" id="" />
                     <br />
                     <br />
-                    <input className="w-full py-2 pl-3 rounded-lg" required type="text" name="brandName" placeholder="Brand Name" id="" />
+                    <input className="w-full py-3 pl-3 rounded-lg text-sm" required type="text" name="brandName" placeholder="Type Our Brand Name: Amazon,Walmart,Alibaba,eBay,Target,BestBuy" id="brandName" />
                     <br />
                     <br />
                     <div className="form-control">
                         <div className="">
                             <select name="category" required className="select select-bordered w-full rounded-lg">
-                                <option disabled selected>Pick your Own Category</option>
+                                <option disabled>Pick your Own Category</option>
                                 <option>Smart Watch</option>
                                 <option>Sunglasses</option>
                                 <option>Shoes</option>

@@ -1,7 +1,7 @@
 
 const HomeBanner = () => {
     return (
-        <div className="mx-5 lg:mx-0">
+        <div className="mx-5 lg:mx-0 mt-5">
             <div className="max-w-screen-xl mx-auto">
                 <div className="hero h-[500px] w-full" style={{ backgroundImage: 'url(https://i.ibb.co/YZM1vzc/pexels-andrea-piacquadio-3769747.jpg)' }}>
                     <div className="hero-overlay bg-opacity-80"></div>

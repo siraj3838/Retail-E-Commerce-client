@@ -33,7 +33,8 @@ const MyRouter = createBrowserRouter([
         },
         {
             path: '/myCart',
-            element: <PrivateRouter><MyCart></MyCart></PrivateRouter>
+            element: <PrivateRouter><MyCart></MyCart></PrivateRouter>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/carts')
         },
         {
             path: '/login',
@@ -46,41 +47,42 @@ const MyRouter = createBrowserRouter([
         {
             path: '/amazon',
             element: <Amazon></Amazon>,
-            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon')
         },
         {
             path: '/walmart',
             element: <Walmart></Walmart>,
-            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon')
         },
         {
             path: '/alibaba',
             element: <Alibaba></Alibaba>,
-            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon')
         },
         {
             path: '/eBay',
             element: <EBay></EBay>,
-            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon')
         },
         {
             path: '/target',
             element: <Target></Target>,
-            loader: ()=> fetch('https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon')
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon')
         },
         {
             path: '/bestBuy',
-            element: <BestBuy></BestBuy>
+            element: <BestBuy></BestBuy>,
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/amazon')
         },
         {
             path: '/updateForm/:id',
-            element: <UpdateForm></UpdateForm>,
-            loader: ()=> fetch(`https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon`)
+            element: <PrivateRouter><UpdateForm></UpdateForm></PrivateRouter>,
+            loader: ({params})=> fetch(`https://retail-and-e-commerce-based-server.vercel.app/amazon/${params.id}`)
         },
         {
             path: '/details/:id',
             element: <BrandDetails></BrandDetails>,
-            loader: ()=> fetch(`https://retail-and-e-commerce-based-server-m162poal5-siraj3838.vercel.app/amazon`)
+            loader: ()=> fetch(`https://retail-and-e-commerce-based-server.vercel.app/amazon`)
         }
       ]
     },

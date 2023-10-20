@@ -4,11 +4,13 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateProfile } from "firebase/auth";
+import { AiFillEyeInvisible,AiFillEye } from 'react-icons/ai';
 import Swal from "sweetalert2";
 
 const Registration = () => {
     const [passwordError, setPasswordError] = useState('');
     const [createSuccess, setCreateSuccess] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const { createUser, googleLoginUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -115,7 +117,7 @@ const Registration = () => {
                             </div>
                             <div className="relative h-11 w-full min-w-[200px]">
                                 <input name="password"
-                                    type="password" required
+                                    type={showPassword ? 'text' : 'password'} required
                                     className="bg-gradient-to-r from-blue-300 to-blue-100 peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                     placeholder=" "
                                 />
@@ -123,6 +125,7 @@ const Registration = () => {
                                     Password
                                 </label>
                             </div>
+                            <h2 className="cursor-pointer text-2xl absolute mt-[215px] lg:mt-[215px] ml-72 md:ml-[350px] md:mt-[215px] lg:ml-[345px]" onClick={()=> setShowPassword(!showPassword)}>{showPassword ? <AiFillEye></AiFillEye> : <AiFillEyeInvisible></AiFillEyeInvisible>}</h2>
                         </div>
                         <div className="inline-flex items-center">
                             <label

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import EmptyBrand from "../../Pages/EmptyBrand/EmptyBrand";
 
 const Amazon = () => {
     const amazonData = useLoaderData();
@@ -39,7 +40,8 @@ const Amazon = () => {
                 </div>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-5 my-10">
+            {
+                amazonsDetails.length ? <div className="grid lg:grid-cols-2 gap-5 my-10">
                 {
                     amazonsDetails.map(detail => <div className="grid grid-cols-1 md:grid-cols-3 gap-3 shadow-2xl bg-accent rounded-lg py-5 md:py-0" key={detail._id}>
                         <div className="md:col-span-1 flex justify-center pt-5 md:pt-0 px-4 md:px-0">
@@ -48,15 +50,15 @@ const Amazon = () => {
                         <div className="flex justify-center text-center md:text-left items-center py-6">
                             <div className="space-y-6">
                                 <h4 className=" text-3xl font-semibold italic bg-gradient-to-r from-orange-700 via-orange-400 to-yellow-700 text-transparent bg-clip-text">{detail.name}</h4>
-                                <div>
+                                
                                     <h4 className="text-2xl font-medium bg-gradient-to-r from-black  to-orange-300 text-transparent bg-clip-text">{detail.brandName}</h4>
                                     <h4 className="text-xl font-medium bg-gradient-to-r from-black  to-orange-300 text-transparent bg-clip-text">{detail.category}</h4>
-                                </div>
+                                
                                 <div className="flex justify-between">
                                     {
                                         detail ? <h4 className="text-xl font-extrabold bg-gradient-to-r from-orange-900 via-orange-800 to-yellow-900 text-transparent bg-clip-text">{detail.price}$</h4> : ''
                                     }
-                                    <h4 className="text-lg font-semibold">{detail.rating}</h4>
+                                    <h4 className="text-lg font-semibold bg-gradient-to-r from-orange-900 via-orange-800 to-yellow-900 text-transparent bg-clip-text">{detail.rating}</h4>
                                 </div>
                             </div>
                         </div>
@@ -75,6 +77,9 @@ const Amazon = () => {
                     </div>)
                 }
             </div>
+            :
+            <EmptyBrand></EmptyBrand>
+            }
         </div>
     );
 };
