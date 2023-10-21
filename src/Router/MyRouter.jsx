@@ -15,6 +15,8 @@ import Target from "../Components/Target/Target";
 import BestBuy from "../Components/BestBuy/BestBuy";
 import UpdateForm from "../UpdatedForm/UpdateForm";
 import BrandDetails from "../Components/BrandDetails/BrandDetails";
+import OurLayout from "../Pages/OurLayout/OurLayout";
+import About from "../Pages/About/About";
 
 const MyRouter = createBrowserRouter([
     {
@@ -26,6 +28,14 @@ const MyRouter = createBrowserRouter([
             path: '/',
             element: <Home></Home>,
             loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/feedbacks')
+        },
+        {
+            path: '/ourLayout',
+            element: <OurLayout></OurLayout>
+        },
+        {
+            path: '/about',
+            element: <About></About>
         },
         {
             path: '/addProduct',
@@ -84,6 +94,7 @@ const MyRouter = createBrowserRouter([
             element: <PrivateRouter><BrandDetails></BrandDetails></PrivateRouter>,
             loader: ()=> fetch(`https://retail-and-e-commerce-based-server.vercel.app/amazon`)
         }
+    
       ]
     },
   ]);

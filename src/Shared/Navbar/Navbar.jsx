@@ -61,6 +61,22 @@ const Navbar = () => {
         >
             My Cart
         </NavLink>
+        <NavLink
+            to="/ourLayout"
+            className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-white px-3 py-2 rounded-lg hover:text-blue-800 bg-gradient-to-r from-orange-600 to-orange-400" : "text-white"
+            }
+        >
+            Our layout
+        </NavLink>
+        <NavLink
+            to="/about"
+            className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-white px-3 py-2 rounded-lg hover:text-blue-800 bg-gradient-to-r from-orange-600 to-orange-400" : "text-white"
+            }
+        >
+            App
+        </NavLink>
     </>
     return (
         <div className="bg-gradient-to-r from-sky-300 to-orange-400 pt-1">
@@ -72,7 +88,7 @@ const Navbar = () => {
                     <img src="https://i.ibb.co/zZKP1Wt/toucan-logo-mini.png" alt="" />
                 </div>
 
-                <div className="flex justify-center items-center gap-9 md:gap-12 lg:gap-9 lg:text-xl font-semibold">
+                <div className="justify-between flex items-center lg:text-lg font-semibold px-5 md:px-0">
                     {navLists}
                 </div>
 
