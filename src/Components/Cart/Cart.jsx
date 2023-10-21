@@ -1,20 +1,43 @@
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Cart = ({ setSelectItem, selectItem, item }) => {
     const { photo, name, price, _id } = item || {};
 
     const handleDelete = (id) => {
-        console.log(id);
-        fetch(`https://retail-and-e-commerce-based-server.vercel.app/carts/${id}`, {
-            method: "DELETE",
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be delete this product!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`https://retail-and-e-commerce-based-server.vercel.app/carts/${id}`, {
+                    method: "DELETE",
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.deletedCount > 0) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your Product has been deleted.',
+                                'success'
+                            )
+                            const remaining = selectItem.filter(carts => carts._id !== _id);
+                            setSelectItem(remaining);
+                        }
+                    })
+
+            }
         })
     }
 
     return (
-        <div key={_id}>
+        <div>
             <div className="card glass">
                 <figure><img className="h-72 w-full" src={photo} alt="item!" /></figure>
                 <div className="card-body space-y-3">

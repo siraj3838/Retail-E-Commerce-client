@@ -25,7 +25,7 @@ const MyRouter = createBrowserRouter([
         {
             path: '/',
             element: <Home></Home>,
-            loader: ()=> fetch('/homeData.json')
+            loader: ()=> fetch('https://retail-and-e-commerce-based-server.vercel.app/feedbacks')
         },
         {
             path: '/addProduct',
@@ -81,7 +81,7 @@ const MyRouter = createBrowserRouter([
         },
         {
             path: '/details/:id',
-            element: <BrandDetails></BrandDetails>,
+            element: <PrivateRouter><BrandDetails></BrandDetails></PrivateRouter>,
             loader: ()=> fetch(`https://retail-and-e-commerce-based-server.vercel.app/amazon`)
         }
       ]

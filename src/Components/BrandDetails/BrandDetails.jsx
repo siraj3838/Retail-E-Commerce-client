@@ -7,6 +7,7 @@ const BrandDetails = () => {
     const [detailsInfo, setDetailsInfo] = useState({})
     const { id } = useParams();
     const loadData = useLoaderData();
+    
     useEffect(() => {
         const findData = loadData.find(item => item._id == id);
         setDetailsInfo(findData);

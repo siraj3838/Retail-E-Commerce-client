@@ -1,6 +1,15 @@
+
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const BrandCard = ({brandCard}) => {
+const BrandCard = () => {
+    const [brandCard, setBrandCard] = useState([]);
+    useEffect(()=>{
+        fetch('/homeData.json')
+        .then(res => res.json())
+        .then(data => setBrandCard(data))
+    },[])
     return (
         <div className="my-10 px-5 lg:px-0">
             <div className="max-w-screen-xl mx-auto">

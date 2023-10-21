@@ -41,7 +41,7 @@ const Login = () => {
         googleLoginUser()
             .then(response => {
                 Swal.fire(
-                    'Thank You',
+                    'Welcome',
                     'Login Successfully',
                     'success'
                   )
