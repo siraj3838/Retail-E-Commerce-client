@@ -1,6 +1,7 @@
-import { toast } from "react-toastify";
+
 import Swal from "sweetalert2";
 
+// eslint-disable-next-line react/prop-types
 const Cart = ({ setSelectItem, selectItem, item }) => {
     const { photo, name, price, _id } = item || {};
 

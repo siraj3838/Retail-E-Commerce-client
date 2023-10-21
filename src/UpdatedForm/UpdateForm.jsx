@@ -1,7 +1,7 @@
 
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
+// import { toast } from "react-toastify"
 
 const UpdateForm = () => {
     const updateData = useLoaderData();

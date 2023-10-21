@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { AuthContext } from "../../../../Provider/AuthProvider";
 
 
+// eslint-disable-next-line react/prop-types
 const Reviews = ({ review, }) => {
     const { user } = useContext(AuthContext);
-    const { name, _id, message } = review || {};
+    const { name, message } = review || {};
 
     return (
         <div className="max-w-screen-xl mx-auto my-5">
