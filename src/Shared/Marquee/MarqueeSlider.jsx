@@ -2,6 +2,7 @@ import Marquee from "react-fast-marquee";
 const MarqueeSlider = () => {
     return (
         <div className="max-w-screen-xl mx-auto mb-20">
+            {/* marquee  */}
             <Marquee speed={140} autoFill={true}>
                 <div className="">
                 <img src="https://i.ibb.co/7Q1WWT2/01-elementor.jpg" alt="" />
